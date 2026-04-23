@@ -10,6 +10,7 @@ import SideBar from './SideBar'
 import ActionsForm from './ActionsForm'
 import { Home } from './Home'
 import { About } from './About'
+import { Chatbot } from './Chatbot'
 
 function App (props) {
   console.log('runtime object:', props.runtime)
@@ -45,7 +46,8 @@ function App (props) {
             </View>
             <View gridArea='content' padding='size-200'>
               <Routes>
-                <Route path='/' element={<Home ims={props.ims} />} />
+                <Route path='/' element={<Home />} />
+                <Route path='/chatbot' element={<Chatbot ims={props.ims} />} />
                 <Route path='/actions' element={<ActionsForm runtime={props.runtime} ims={props.ims} />}/>
                 <Route path='/about' element={<About />}/>
               </Routes>

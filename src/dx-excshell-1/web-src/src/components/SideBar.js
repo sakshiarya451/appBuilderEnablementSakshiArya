@@ -22,6 +22,15 @@ function SideBar () {
                 <NavLink
                     className={({ isActive }) => `SideNav-itemLink ${isActive ? 'is-selected' : ''}`}
                     aria-current="page"
+                    to="/chatbot"
+                >
+                    App Builder Bot
+                </NavLink>
+            </li>
+            <li className="SideNav-item">
+                <NavLink
+                    className={({ isActive }) => `SideNav-itemLink ${isActive ? 'is-selected' : ''}`}
+                    aria-current="page"
                     to="/actions"
                 >
                     Your App Actions
