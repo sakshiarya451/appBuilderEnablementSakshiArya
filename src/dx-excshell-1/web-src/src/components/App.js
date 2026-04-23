@@ -1,4 +1,4 @@
-/* 
+/*
 * <license header>
 */
 
@@ -16,12 +16,9 @@ function App (props) {
   console.log('runtime object:', props.runtime)
   console.log('ims object:', props.ims)
 
-  // use exc runtime event handlers
-  // respond to configuration change events (e.g. user switches org)
   props.runtime.on('configuration', ({ imsOrg, imsToken, locale }) => {
     console.log('configuration change', { imsOrg, imsToken, locale })
   })
-  // respond to history change events
   props.runtime.on('history', ({ type, path }) => {
     console.log('history change', { type, path })
   })
@@ -32,24 +29,20 @@ function App (props) {
         <Provider theme={defaultTheme} colorScheme={'light'}>
           <Grid
             areas={['sidebar content']}
-            columns={['256px', '3fr']}
+            columns={['256px', '1fr']}
             rows={['auto']}
             height='100vh'
-            gap='size-100'
+            gap='size-0'
           >
-            <View
-              gridArea='sidebar'
-              backgroundColor='gray-200'
-              padding='size-200'
-            >
-              <SideBar></SideBar>
+            <View gridArea='sidebar' backgroundColor='gray-200' padding='size-200'>
+              <SideBar />
             </View>
-            <View gridArea='content' padding='size-200'>
+            <View gridArea='content' height='100vh' overflow='hidden'>
               <Routes>
-                <Route path='/' element={<Home />} />
+                <Route path='/' element={<View padding='size-200'><Home /></View>} />
                 <Route path='/chatbot' element={<Chatbot ims={props.ims} />} />
-                <Route path='/actions' element={<ActionsForm runtime={props.runtime} ims={props.ims} />}/>
-                <Route path='/about' element={<About />}/>
+                <Route path='/actions' element={<View padding='size-200'><ActionsForm runtime={props.runtime} ims={props.ims} /></View>} />
+                <Route path='/about' element={<View padding='size-200'><About /></View>} />
               </Routes>
             </View>
           </Grid>
@@ -58,18 +51,12 @@ function App (props) {
     </ErrorBoundary>
   )
 
-  // Methods
-
-  // error handler on UI rendering failure
   function onError (e, componentStack) { }
 
-  // component to show if UI fails rendering
   function fallbackComponent ({ componentStack, error }) {
     return (
       <React.Fragment>
-        <h1 style={{ textAlign: 'center', marginTop: '20px' }}>
-          Something went wrong :(
-        </h1>
+        <h1 style={{ textAlign: 'center', marginTop: '20px' }}>Something went wrong :(</h1>
         <pre>{componentStack + '\n' + error.message}</pre>
       </React.Fragment>
     )
