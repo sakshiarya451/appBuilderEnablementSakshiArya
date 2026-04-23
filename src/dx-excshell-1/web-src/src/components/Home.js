@@ -43,7 +43,8 @@ export const Home = ({ ims }) => {
       if (ims?.org) headers['x-gw-ims-org-id'] = ims.org
 
       const response = await actionWebInvoke(actionUrl, headers, { question })
-      const answer = response?.answer || 'Sorry, I could not get a response.'
+      const parsed = typeof response === 'string' ? JSON.parse(response) : response
+      const answer = parsed?.answer || 'Sorry, I could not get a response.'
       setMessages(prev => [...prev, { role: 'bot', text: answer }])
     } catch (e) {
       setMessages(prev => [...prev, { role: 'bot', text: 'Error: ' + e.message }])

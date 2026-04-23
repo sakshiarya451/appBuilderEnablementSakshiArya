@@ -26,7 +26,7 @@ async function main (params) {
       return errorResponse(500, 'GEMINI_API_KEY is not configured', logger)
     }
 
-    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`
+    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${apiKey}`
 
     const geminiBody = {
       system_instruction: {
@@ -62,7 +62,13 @@ async function main (params) {
     logger.info('200: successful request')
     return {
       statusCode: 200,
-      body: { answer }
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization'
+      },
+      body: JSON.stringify({ answer })
     }
   } catch (error) {
     logger.error(error)

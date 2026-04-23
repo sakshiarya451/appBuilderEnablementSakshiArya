@@ -17,5 +17,5 @@ runtimeManifest:
             LOG_LEVEL: debug
             GEMINI_API_KEY: $GEMINI_API_KEY
           annotations:
-            require-adobe-auth: true
+            require-adobe-auth: false
             final: true
